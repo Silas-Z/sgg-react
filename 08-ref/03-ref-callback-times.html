@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        input {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="show"></div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel" >
+    
+    class MyComponent extends React.Component {
+        state = {
+            isHot : true
+        }
+        showAlert = ()=> {
+            alert (this.input.value)
+            console.log(this);
+        }
+        changeHot = () => {
+            this.setState(
+                {
+                    isHot : !this.state.isHot
+                }
+            )
+        }
+        inputContent = (c)=>{this.input=c};
+            
+        
+
+        render(){
+            const isHot = this.state.isHot;
+            return(
+                <div>
+                    <h1>It's too {isHot ? "Hot" : "Cold"}</h1>
+                    {/* 回调函数 1 你定义了; 2 你没执行; 3 最终调用了 */}
+                    <input ref={this.inputContent} type="text" />
+                    <button onClick={this.showAlert}>Show alert</button>
+                    <button onClick={this.changeHot}>Switch weather</button>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <MyComponent />,document.getElementById('show')
+    )
+    </script>
+
+    
+
+
+</body>
+</html>

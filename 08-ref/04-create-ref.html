@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        input {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="show"></div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel" >
+    
+    class MyComponent extends React.Component {
+        ref1 = React.createRef();
+        ref2 = React.createRef();
+        state = {
+            name: "silas"
+        }
+        textSubmit = () => {
+            console.log("onclick now",this);
+            alert(this.ref1.current.value)
+        }
+        inputOnBlur = () => {
+            alert(this.ref2.current.value)
+        }
+        render(){
+            console.log("page is run",this);
+            return(
+                <div>
+                    {/* 回调函数 1 你定义了; 2 你没执行; 3 最终调用了 */}
+                    <input ref={this.ref1} type="text" placeholder="type some text here" />
+                    <button ref="button" onClick={this.textSubmit}>Click here</button>
+                    <input ref={this.ref2} onBlur={this.inputOnBlur} type="text" placeholder="the content will auto submit"/>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <MyComponent p="p"/>,document.getElementById('show')
+    )
+    </script>
+
+    
+
+
+</body>
+</html>
