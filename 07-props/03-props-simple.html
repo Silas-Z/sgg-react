@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>props-confine</title>
+</head>
+<body>
+    <div id='show'></div>
+    <div id='show2'></div>    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入 Props.Type 使用类型限制功能 -->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        const personAmy = {
+            name: 'Amy',
+            age: 18
+        }
+
+        class UserInfo extends React.Component {
+            static propTypes = {
+                name: PropTypes.string.isRequired,
+                age: PropTypes.number.isRequired,
+                sex: PropTypes.string
+            } 
+
+            static defaultProps ={
+                age:10,
+                sex:'secret'
+            }
+
+            render(){
+                const{name,age,sex} = this.props;
+                console.log(this.props)
+                
+                return(
+                    <ul>
+                        <li>name: {name}</li>
+                        <li>age: {age}</li>
+                        <li>sex: {sex}</li>
+
+                    </ul>
+                )
+            }
+        }
+
+        ReactDOM.render(<UserInfo name='silas' age={18} sex='male'/>, document.getElementById('show'))
+        ReactDOM.render(<UserInfo {...personAmy}/>, document.getElementById('show2'))
+    
+    </script>
+</body>
+</html>
