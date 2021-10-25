@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component without control</title>
+</head>
+<body>
+    <div id="show"></div>
+    
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        class Login extends React.Component {
+
+            showInfo = () => {
+                console.log(this.name.value,this.password.value);
+                //alert("name: " + this.name.value + "&lt;br/&gt;" + " password: " + this.password.value)
+                alert(`name: ${this.name.value} password: ${this.password.value}`)
+
+            }
+            render (){
+                return(
+                    <form action="" onSubmit={this.showInfo}>
+                        name<br/>
+                        <input ref={(c) => {this.name = c}} type="text" name="username" /><br/>
+                        password<br/>
+                        <input ref={(c) => {this.password = c}} type="password" name="password" /><br/>
+                        <button >Submit</button>
+                        </form>
+                )
+            }
+        }
+        ReactDOM.render(<Login />,document.getElementById('show'))
+    </script>
+</body>
+</html>
