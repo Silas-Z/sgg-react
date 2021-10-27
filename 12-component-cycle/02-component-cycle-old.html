@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State cycle old</title>
+</head>
+
+<body>
+    <div id="show"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+
+        class CalculatePlusOne extends React.Component {
+
+            constructor(props) {
+                console.log('constructor');
+                super(props)
+                this.state = {
+                    result: 1
+                }
+            }
+
+            componentWillMount(){
+                console.log('ComponentWillMount');
+            }
+
+            componentDidMount(){
+                console.log('componentDidMount');
+            }
+
+            componentWillUnmount(){
+                console.log('componentWillUnmount');
+            }
+
+            shouldComponentUpdate(){
+                console.log('shouldComponentUpdate');
+                return true
+            }
+            calculate = () => {
+                let { result } = this.state;
+                result += 1;
+                this.setState({
+                    result
+                })
+
+            }
+
+            kill = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('show'))
+            }
+
+
+            render() {
+                console.log('render');
+                return (
+                    <div>
+                        <h2>Result:{this.state.result}</h2>
+                        <button onClick={this.calculate}>Plus 1</button>
+                        <button onClick={this.kill}>Kill itself</button>
+                    </div>
+                )
+            }
+
+        }
+
+        ReactDOM.render(
+            <CalculatePlusOne />, document.getElementById('show')
+        )
+
+    </script>
+</body>
+
+</html>

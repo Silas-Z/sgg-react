@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State</title>
+</head>
+
+<body>
+    <div id="show"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+
+        class LifePeriod extends React.Component {
+            state = {
+                opacity:1
+            }
+
+            componentDidMount (){
+                this.timer = setInterval(() => {
+                    let {opacity} = this.state;
+                    opacity -= 0.1;
+                    if(opacity <= 0){opacity = 1};
+                    this.setState ({
+                        opacity
+                    })
+                    console.log(opacity);
+
+                }, 100);
+            }
+
+            componentWillUnmount (){
+                clearInterval(this.timer)
+            }
+            
+            killItself = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('show'))
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2 style={{opacity:this.state.opacity}}>I can't learn to code react, how i do?</h2>
+                        <button onClick={this.killItself}>Kill it</button>
+                    </div>
+                )
+            }
+
+        }
+        ReactDOM.render(
+            <LifePeriod />, document.getElementById('show')
+        )
+
+    </script>
+</body>
+
+</html>
