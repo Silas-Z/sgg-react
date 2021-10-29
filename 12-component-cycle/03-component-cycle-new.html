@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>State cycle old</title>
+    <title>State cycle new</title>
 </head>
 
 <body>
     <div id="show"></div>
 
-    <script type="text/javascript" src="../js/react.development.js"></script>
-    <script type="text/javascript" src="../js/react-dom.development.js"></script>
-    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/javascript" src="../js/v17.0.1/react.development.js"></script>
+    <script type="text/javascript" src="../js/v17.0.1/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/v17.0.1/babel.min.js"></script>
     <script type="text/babel">
 
         class CalculatePlusOne extends React.Component {
@@ -27,7 +27,18 @@
                 }
             }
 
-            componentWillMount(){
+            static getDerivedStateFromProps(props,state){
+                console.log('getDerivedStateFromProps',props,state);
+                return null
+            }
+
+            getSnapshotBeforeUpdate (){
+                console.log('getSnapshotFromUpdate');
+                return 'Silas'
+                
+            }
+
+            UNSAFE_componentWillMount(){
                 console.log('ComponentWillMount');
             }
 
@@ -44,12 +55,12 @@
                 return true
             }
 
-            componentWillUpdate(){
+            UNSAFE_componentWillUpdate(){
                 console.log('componentWillUpdate');
             }
 
-            componentDidUpdate(){
-                console.log('componentDidUpdate');
+            componentDidUpdate(preProps,preState){
+                console.log('componentDidUpdate',preProps,preState);
             }
 
             calculate = () => {
@@ -119,7 +130,7 @@
         }
         
         ReactDOM.render(
-            <Parent />, document.getElementById('show')
+            <CalculatePlusOne />, document.getElementById('show')
         )
 
     </script>
