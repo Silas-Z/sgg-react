@@ -12,6 +12,7 @@
             height: 180px;
             overflow-y: scroll;
         }
+
         .list-item {
             height: 30px;
         }
@@ -29,28 +30,49 @@
         class NewsList extends React.Component {
 
             state = {
-                newsArr:[]
+                newsArr: []
             }
 
-            
+            getSnapshotBeforeUpdate() {
+                console.log('getSnapshot',this.refs.list);
+                return this.refs.list.scrollHeight;
+
+            }
+            componentDidUpdate(props,state,height){
+                this.refs.list.scrollTop += this.refs.list.scrollHeight - height;
+            }
+
+            componentDidMount() {
+                console.log('DidMount');
+                setInterval(() => {
+                    console.log('interval');
+                    const { newsArr } = this.state;
+                    const newsItem = `News ${newsArr.length + 1}`;
+                    this.setState({
+                        newsArr: [newsItem, ...newsArr]
+                    })
+
+                }, 1000);
+            }
+
             render() {
+                const { newsArr } = this.state;
+                console.log('this.state', newsArr);
                 return (
-                    <div className="list-group">
-                        <div className="list-item">News 01</div>
-                        <div className="list-item">News 01</div>
-                        <div className="list-item">News 01</div>
-                        <div className="list-item">News 01</div>
-                        <div className="list-item">News 01</div>
-                        <div className="list-item">News 01</div>
-                        <div className="list-item">News 01</div>
-                        <div className="list-item">News 01</div>
+                    <div className="list-group" ref="list">
+                        {
+                            newsArr.map((item, index) => {
+                                return <div key={index} className="list-item">{item}</div>
+
+                            })
+                        }
 
                     </div>
                 )
             }
         }
 
-        ReactDOM.render(<NewsList />,document.getElementById('show'))
+        ReactDOM.render(<NewsList />, document.getElementById('show'))
 
     </script>
 </body>

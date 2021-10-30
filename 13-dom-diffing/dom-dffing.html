@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="show"></div>
+
+    <script type="text/javascript" src="../js/v17.0.1/react.development.js"></script>
+    <script type="text/javascript" src="../js/v17.0.1/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/v17.0.1/babel.min.js"></script>
+
+    <script type="text/babel">
+
+        class People extends React.Component {
+            state = {
+                people: [
+                { id: 1, name: "Silas", age: "18" },
+                { id:  2, name: "Amy", age: "19" }
+
+            ]}
+
+            addPerson = () => {
+                const {people} = this.state;
+                const newPerson = {
+                    id: people.length + 1,
+                    name: 'Kitty',
+                    age: 20
+                }
+                console.log(newPerson);
+                this.setState ({
+                    people: [newPerson, ...people]
+                })
+                
+            }
+
+            render(){
+                const {people} = this.state;
+                return(
+                    <div>
+                        <h1>People info</h1>
+                        <button onClick={this.addPerson}>Add person</button>
+                        <ul>
+                            {
+                                people.map((item,index) => {
+                                    return <li key={index}>{item.name},{item.age} <input type="text" /></li> 
+                                    
+                                })
+                            }
+                            </ul>
+
+                        <hr/>
+                        <ul>
+                            {
+                                people.map((item) => {
+                                    return <li key={item.id}>{item.name},{item.age} <input type="text" /></li> 
+                                    
+                                })
+                            }
+                            </ul>
+                        </div>
+                )
+            }
+
+        
+
+        }
+        ReactDOM.render(<People />, document.getElementById('show'))
+
+    </script>
+</body>
+
+</html>
