@@ -24,7 +24,6 @@ export default class App extends Component {
 
   changeTask = (id, done) => {
     const { todo } = this.state;
-    console.log(todo);
     const newTodo = todo.map((item) => {
       if (item.id === id) {
         return { ...item, done };
@@ -36,13 +35,27 @@ export default class App extends Component {
     this.setState({ todo: newTodo });
   };
 
+  deleteTask = (id) => {
+    const { todo } = this.state;
+    const newTodo = todo.filter((item) => {
+      return item.id !== id;
+    });
+    if (window.confirm("Are you sure?")) {
+      this.setState({ todo: newTodo });
+    }
+  };
+
   render() {
     const { todo } = this.state;
     return (
       <div className="todo-container">
         <div className="todo-wrap">
           <Header addTask={this.addTask} />
-          <List todo={todo} changeTask={this.changeTask} />
+          <List
+            todo={todo}
+            changeTask={this.changeTask}
+            deleteTask={this.deleteTask}
+          />
           <Footer />
         </div>
       </div>

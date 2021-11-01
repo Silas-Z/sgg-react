@@ -18,12 +18,16 @@ export default class Item extends Component {
     }
 
     handleCheck = (id) => {
-        
+
         return (event) => {
             console.log('handleCheck log target', event.target.checked);
-            this.props.changeTask(id,event.target.checked)
+            this.props.changeTask(id, event.target.checked)
 
         }
+    }
+
+    handleDelete = (id) => {
+        this.props.deleteTask(id)
     }
 
     render() {
@@ -34,7 +38,7 @@ export default class Item extends Component {
                     <input type="checkbox" defaultChecked={done} onChange={this.handleCheck(id)} />
                     <span>{name}</span>
                 </label>
-                <button className="btn btn-danger" style={{ display: this.state.mouseState ? 'block' : "none" }}>删除</button>
+                <button className="btn btn-danger" style={{ display: this.state.mouseState ? 'block' : "none" }} onClick={() => { this.handleDelete(id) }}>删除</button>
             </li>
 
         )
