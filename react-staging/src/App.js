@@ -11,7 +11,7 @@ export default class App extends Component {
     todo: [
       { id: "001", name: "work", done: true },
       { id: "002", name: "eat", done: false },
-      { id: "003", name: "sleep", done: false },
+      { id: "003", name: "sleep", done: true },
       { id: "004", name: "repeat", done: false },
     ],
   };
@@ -45,6 +45,18 @@ export default class App extends Component {
     }
   };
 
+  checkAll = (done) => {
+    const { todo } = this.state;
+    const newTodo = todo.map((item) => ({ ...item, done }));
+    this.setState({ todo: newTodo });
+  };
+
+  cleanDone = (params) => {
+    const { todo } = this.state;
+    const newTodo = todo.filter((item) => !item.done);
+    this.setState({ todo: newTodo });
+  };
+
   render() {
     const { todo } = this.state;
     return (
@@ -56,7 +68,7 @@ export default class App extends Component {
             changeTask={this.changeTask}
             deleteTask={this.deleteTask}
           />
-          <Footer />
+          <Footer todo={todo} checkAll={this.checkAll} cleanDone={this.cleanDone}/>
         </div>
       </div>
     );
