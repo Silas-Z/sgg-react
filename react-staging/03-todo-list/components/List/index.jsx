@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Item from '../Item'
 
 import './index.css';
-
+// test git push
 export default class List extends Component {
     static propTypes = {
         todo: PropTypes.array.isRequired,
@@ -28,3 +28,5 @@ export default class List extends Component {
         )
     }
 }
+
+
