@@ -1,24 +1,26 @@
 import React, { Component } from 'react'
-import Axios from 'axios'
+import axios from 'axios'
 
 //发送请求需要启动本地响应服务器，响应服务器再请求 github 内容返回
 
 export default class Header extends Component {
+
+
     search = () => {
+        this.props.setAppState({ isFirst: false ,isLoading:true });
         const { keyWordElement: { value: keyWord } } = this;
         console.log(keyWord);
-        Axios.get(`/search/users2?q=${keyWord}`)
-            .then(function (response) {
+        axios.get(`/search/users3?q=${keyWord}`)
+            .then((response) => {
                 // 处理成功情况
-                console.log(response);
-            })
-            .catch(function (error) {
+                this.props.setAppState({ userData: response.data.items, isLoading: false })
+
+            }, (error) => {
                 // 处理错误情况
-                console.log(error);
-            })
-            .then(function () {
-                // 总是会执行
+                console.log('error:', error);
+                this.props.setAppState({ isLoading: false, hadError: error.message });
             });
+
 
     }
     render() {
