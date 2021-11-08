@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import Header from "./components/Header";
-import Home from './pages/Home'
-import About from './pages/About'
+import Home from './components/Home'
+import About from './components/About'
 import CustomNavLink from "./components/ CustomNavLink";
 
 export default class App extends Component {
